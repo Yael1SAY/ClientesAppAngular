@@ -1,0 +1,39 @@
+<div class="card border-primary mb-3">
+  <div class="card-header">Clientes</div>
+  <div class="card-body text-primary">
+    <h5 class="card-title">Listado de clientes</h5>
+    <div class="my-2 text-left">                            <!--ruta que se creo en app-modules y nos redirecciona a form-->
+      <button class="btn btn-primary btn-rounded" type="button" [routerLink]="['/clientes/form']">Nuevo Cliete</button>
+    </div>
+
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>correo</th>
+          <th>nombre</th>
+          <th>edad</th>
+          <th>Direccion</th>
+          <th>Referencia</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let direccion of direcciones">
+          <td>{{ direccion.id }}</td>
+          <td>{{ direccion.correo }}</td>
+          <td>{{ direccion.nombre }} {{ direccion.apellido }}</td>
+          <td>{{ direccion.edad }}</td>
+          <td>{{ direccion.calle }}, #{{ direccion.noExterior }}, {{ direccion.municipio }}, {{ direccion.estado }}, C.P. {{ direccion.codPostal }}</td>
+          <td>{{ direccion.referencia }}</td>
+          <td>
+            <button type="button" name="edit" [routerLink]="['/clientes/form', direccion.id]" class="btn btn-primary btn-sm">Editar</button>
+          </td>
+          <td>
+            <button type="button" name="eliminar" (click)="delete(direccion)" class="btn btn-warning btn-sm">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
