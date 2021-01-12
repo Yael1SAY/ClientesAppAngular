@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Direccion } from './direcciones';
+//import { Cliente } from './cliente';
 import { ClienteService } from './cliente.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -11,9 +12,9 @@ import Swal from 'sweetalert2';
 export class FormComponent implements OnInit {
 
   //por medio de {{}} en html se pueden llamar las variables
-  private direccion: Direccion = new Direccion();
+  direccion: Direccion = new Direccion();
+  //cliente: Cliente = new Cliente();
   private titulo: string = "Nuevo Cliente";
-  @Input() cliente: Direccion;
 
   constructor(private clienteService: ClienteService,
     private router: Router,
@@ -28,7 +29,7 @@ export class FormComponent implements OnInit {
     let id = params['id']
     if(id){
       this.clienteService.getId(id).subscribe(
-        (direccion) => this.direccion = direccion
+        direccion => this.direccion = direccion
       )
     }
   })
@@ -39,18 +40,22 @@ export class FormComponent implements OnInit {
   public nuevo(): void{
     console.log("Clicked");
     console.log(this.direccion);
+    console.log(this.direccion.cliente);
     this.clienteService.nuevo(this.direccion)
     .subscribe(response => {//Alerta OK
       this.router.navigate(['/clientes'])
-        //Swal.fire('Registro exitoso...', this.cliente, 'success')
+        Swal('Registro exitoso...', this.direccion.cliente.nombre, 'success')
     })
   }
 
   public update(): void{
+    console.log("Clicked");
+    console.log(this.direccion);
+    console.log(this.direccion.cliente);
     this.clienteService.update(this.direccion)
-    .subscribe(direccion => {
+    .subscribe(response => {
       this.router.navigate(['/clientes'])
-      console.log("Cliente Actualizado con exito")
+      Swal('Actualizacion exitoso...', this.direccion.cliente.nombre, 'success')
     })
   }
 }

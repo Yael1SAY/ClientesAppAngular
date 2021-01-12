@@ -1,3 +1,5 @@
+//import { Cliente } from './cliente';
+
 export class Direccion {
 
   id: number;
@@ -7,10 +9,13 @@ export class Direccion {
   munucipio: string;
   estado: string;
   referencia: string;
-  cliente: Cliente;
+  id_cliente: number;
+  cliente: Cliente = new Cliente();
 }
 
-class Cliente {
+
+export class Cliente {
+  id_cliente: number;
   correo: string;
   nombre: string;
   apellido: string;

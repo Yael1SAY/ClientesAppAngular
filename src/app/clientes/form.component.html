@@ -2,87 +2,138 @@
   <div class="card-header"> {{titulo}}
   </div>
   <div class="card-body">
-    <form> <!--invoca al metodo del componente al presionar el boton-->
-<!---->
+    <form #clienteForm="ngForm"> <!--invoca al metodo del componente al presionar el boton-->
       <div class="form-group row">
-        <label for="correo" class="col-form-label col-sm-2">Correo</label>
+        <label for="email" class="col-form-label col-sm-2">Correo</label>
         <div class="col-sm-5"> <!--objeto direccion.correo hace referencia al objeto creado en el componente (form.component.ts)-->
-          <input type="text" class="form-control" [(ngModel)]="direccion.correo" name="correo">
+          <input type="email" class="form-control" [(ngModel)]="direccion.cliente.correo" name="email" required email #email="ngModel">
           <!--Nombre del atributo de la clase component-->
+          <div class="alert alert-danger" *ngIf="email.invalid && (email.dirty || email.touched)">
+            <div *ngIf="email.errors.required">
+              Campo Correo es Requerido
+            </div>
+            <div *ngIf="email.errors.email">
+              Agrege formato valido
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="form-group row">
         <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
         <div class="col-sm-5">              <!--ngModel va a mapear el objeto direccion-->
-          <input type="text" class="form-control" [(ngModel)]="direccion.nombre" name="nombre">
+          <input type="text" class="form-control" [(ngModel)]= direccion.cliente.nombre name="nombre" required #nombre="ngModel">
+          <div class="alert alert-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+            <div *ngIf="nombre.errors.required">
+              Campo nombre es Requerido
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="form-group row">
         <label for="apellido" class="col-form-label col-sm-2">Apellido</label>
         <div class="col-sm-5">
-          <input type="text" class="form-control" [(ngModel)]="direccion.apellido" name="apellido">
+          <input type="text" class="form-control" [(ngModel)]="direccion.cliente.apellido" name="apellido" required #apellido="ngModel">
+          <div class="alert alert-danger" *ngIf="apellido.invalid && (apellido.dirty || apellido.touched)">
+            <div *ngIf="apellido.errors.required">
+              Campo apellido es Requerido
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="form-group row">
         <label for="edad" class="col-form-label col-sm-2">Edad</label>
         <div class="col-sm-5">
-          <input type="text" class="form-control" [(ngModel)]="direccion.edad" name="edad">
+          <input type="text" class="form-control" [(ngModel)]="direccion.cliente.edad" name="edad" required #edad="ngModel">
+          <div class="alert alert-danger" *ngIf="edad.invalid && (edad.dirty || edad.touched)">
+            <div *ngIf="edad.errors.required">
+              Campo edad es Requerido
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="form-group row">
         <label for="calle" class="col-form-label col-sm-2">Calle</label>
         <div class="col-sm-5">
-          <input type="text" class="form-control" [(ngModel)]="direccion.calle" name="calle">
+          <input type="text" class="form-control" [(ngModel)]="direccion.calle" name="calle" required #calle="ngModel">
+          <div class="alert alert-danger" *ngIf="calle.invalid && (calle.dirty || calle.touched)">
+            <div *ngIf="calle.errors.required">
+              Campo calle es Requerido
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="form-group row">
         <label for="noExterior" class="col-form-label col-sm-2">Numero Exterior</label>
         <div class="col-sm-5">
-          <input type="text" class="form-control" [(ngModel)]="direccion.noExterior" name="noExterior">
+          <input type="text" class="form-control" [(ngModel)]="direccion.noExterior" name="noExterior" required #noexterior="ngModel">
+          <div class="alert alert-danger" *ngIf="noexterior.invalid && (noexterior.dirty || noexterior.touched)">
+            <div *ngIf="noexterior.errors.required">
+              Campo numero exterior es Requerido
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="form-group row">
         <label for="codPostal" class="col-form-label col-sm-2">Codigo Postal</label>
         <div class="col-sm-5">
-          <input type="text" class="form-control" [(ngModel)]="direccion.codPostal" name="codPostal">
+          <input type="text" class="form-control" [(ngModel)]="direccion.codPostal" name="codPostal" required #codpostal="ngModel">
+          <div class="alert alert-danger" *ngIf="codpostal.invalid && (codpostal.dirty || codpostal.touched)">
+            <div *ngIf="codpostal.errors.required">
+              Campo Codigo Postal es Requerido
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="form-group row">
         <label for="municipio" class="col-form-label col-sm-2">Municipio</label>
         <div class="col-sm-5">
-          <input type="text" class="form-control" [(ngModel)]="direccion.municipio" name="municipio">
+          <input type="text" class="form-control" [(ngModel)]="direccion.municipio" name="municipio" required #municipio="ngModel">
+          <div class="alert alert-danger" *ngIf="municipio.invalid && (municipio.dirty || municipio.touched)">
+            <div *ngIf="municipio.errors.required">
+              municipio es Requerido
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="form-group row">
         <label for="estado" class="col-form-label col-sm-2">Estado</label>
         <div class="col-sm-5">
-          <input type="text" class="form-control" [(ngModel)]="direccion.estado" name="estado">
+          <input type="text" class="form-control" [(ngModel)]="direccion.estado" name="estado" required #estado="ngModel">
+          <div class="alert alert-danger" *ngIf="estado.invalid && (estado.dirty || estado.touched)">
+            <div *ngIf="estado.errors.required">
+              estado es Requerido
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="form-group row">
         <label for="referencia" class="col-form-label col-sm-2">Referencia</label>
         <div class="col-sm-5">
-          <input type="text" class="form-control" [(ngModel)]="direccion.referencia" name="referencia">
+          <input type="text" class="form-control" [(ngModel)]="direccion.referencia" name="referencia" required #referencia="ngModel">
+          <div class="alert alert-danger" *ngIf="referencia.invalid && (referencia.dirty || referencia.touched)">
+            <div *ngIf="referencia.errors.required">
+              referencia es Requerido
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="form-group row">
         <div class="col-sm-5">
-          <button class="btn btn-primary" role="button" (click)='nuevo()' *ngIf="!direccion.id else elseBlock">Crear</button>
+          <button class="btn btn-primary" role="button" (click)='nuevo()' *ngIf="!direccion.id else elseBlock" [disabled]="!clienteForm.form.valid">Crear</button>
 
           <ng-template #elseBlock>
-            <button class="btn btn-primary" role="button" (click)='update()'>Editar</button>
+            <button class="btn btn-primary" role="button" (click)='update()' [disabled]="!clienteForm.form.valid">Editar</button>
           </ng-template>
-
         </div>
       </div>
 
