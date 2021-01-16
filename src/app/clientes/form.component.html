@@ -82,7 +82,8 @@
       <div class="form-group row">
         <label for="codPostal" class="col-form-label col-sm-2">Codigo Postal</label>
         <div class="col-sm-5">
-          <input type="text" class="form-control" [(ngModel)]="direccion.codPostal" name="codPostal" required #codpostal="ngModel">
+          <input type="text" id="codPostal" class="form-control" [(ngModel)]="direccion.codPostal" name="codPostal" required #codpostal="ngModel"
+          (blur)="cargarDireccion()">
           <div class="alert alert-danger" *ngIf="codpostal.invalid && (codpostal.dirty || codpostal.touched)">
             <div *ngIf="codpostal.errors.required">
               Campo Codigo Postal es Requerido
@@ -129,10 +130,10 @@
 
       <div class="form-group row">
         <div class="col-sm-5">
-          <button class="btn btn-primary" role="button" (click)='nuevo()' *ngIf="!direccion.id else elseBlock" [disabled]="!clienteForm.form.valid">Crear</button>
+          <button class="btn btn-primary btn-lg" role="button" (click)='nuevo()' *ngIf="!direccion.idDireccion else elseBlock" [disabled]="!clienteForm.form.valid">Crear</button>
 
           <ng-template #elseBlock>
-            <button class="btn btn-primary" role="button" (click)='update()' [disabled]="!clienteForm.form.valid">Editar</button>
+            <button class="btn btn-primary btn-lg" role="button" (click)='update()' [disabled]="!clienteForm.form.valid">Editar</button>
           </ng-template>
         </div>
       </div>

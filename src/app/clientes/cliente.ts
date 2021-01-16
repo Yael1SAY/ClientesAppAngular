@@ -1,10 +1,9 @@
-/*
+
 export class Cliente {
-  id_cliente: number;
+  idCliente: number;
   correo: string;
   nombre: string;
   apellido: string;
   edad: number;
   contrasenia: string;
 }
-*/

@@ -1,4 +1,4 @@
-import { Direccion } from './direcciones';
+import { Direccion } from './direccion';
 
 /*export const DIRECCIONES: Direccion[] = [
   { idDireccion: 1, calle: 'Andrés', noExterior: 1234, codPostal: 2224, munucipio: 'Mexico', estado: "Jilotepec", referencia: "Cerca del"},

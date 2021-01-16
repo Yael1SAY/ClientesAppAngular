@@ -6,30 +6,30 @@
       <button class="btn btn-primary btn-rounded" type="button" [routerLink]="['/clientes/form']">Nuevo Cliete</button>
     </div>
     <div class="my-2 text-left">                            <!--ruta que se creo en app-modules y nos redirecciona a form-->
-      <input type="text" name="filter" value="" placeholder="Buscar ...">
+      <input type="text" class="form-control" name="filterDirecciones" placeholder="Buscar . . . " [(ngModel)]="filterDirecciones">
     </div>
 
     <table class="table table-bordered table-striped">
       <thead>
         <tr>
-          <th>id</th>
-          <th>correo</th>
-          <th>nombre</th>
-          <th>edad</th>
+          <th>Id</th>
+          <th>Correo</th>
+          <th>Nombre</th>
+          <th>Edad</th>
           <th>Direccion</th>
           <th>Referencia</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let direccion of direcciones">
-          <td>{{ direccion.id }}</td>
-          <td>{{ direccion.correo }}</td>
-          <td>{{ direccion.nombre }} {{ direccion.apellido }}</td>
-          <td>{{ direccion.edad }}</td>
+        <tr *ngFor="let direccion of direcciones | filter:filterDirecciones">
+          <td>{{ direccion.idDireccion }}</td>
+          <td>{{ direccion.cliente.correo }}</td><!--interpolacion-->
+          <td>{{ direccion.cliente.nombre }} {{ direccion.cliente.apellido }}</td>
+          <td>{{ direccion.cliente.edad }}</td>
           <td>{{ direccion.calle }}, #{{ direccion.noExterior }}, {{ direccion.municipio }}, {{ direccion.estado }}, C.P. {{ direccion.codPostal }}</td>
           <td>{{ direccion.referencia }}</td>
           <td>
-            <button type="button" name="edit" [routerLink]="['/clientes/form', direccion.id]" class="btn btn-primary btn-sm">Editar</button>
+            <button type="button" name="edit" [routerLink]="['/clientes/form', direccion.idDireccion]" class="btn btn-primary btn-sm">Editar</button>
           </td>
           <td>
             <button type="button" name="eliminar" (click)="delete(direccion)" class="btn btn-warning btn-sm">Eliminar</button>

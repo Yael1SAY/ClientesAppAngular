@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Direccion } from './direcciones';
-//import { Cliente } from './cliente';
+import { Direccion } from './direccion';
+import { Cliente } from './cliente';
 import { ClienteService } from './cliente.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -12,31 +12,35 @@ import Swal from 'sweetalert2';
 export class ClientesComponent implements OnInit {
 
   direcciones: Direccion[] = [];
+  //clientes: Cliente[] = [];
 
   constructor(private clienteService: ClienteService, private router:Router) { }
 
-  ngOnInit() {
+  filterDirecciones = '';
+
+  ngOnInit(): void {//al iniciar la pagina se muestra la lista
     this.clienteService.getClientes().subscribe(
-       direccion => this.direcciones = direccion
-    );
+       data => {
+         this.direcciones = data
+    });
   }
 
   delete(direccion: Direccion): void{
       Swal({
         title: 'Seguro que desea Eliminar?',
-        text: 'Se eliminara el Cliente ' + direccion.calle,
+        text: 'Se eliminara el cliente ' + direccion.cliente.nombre,
         showCancelButton: true,
         confirmButtonText: 'Yes, delete it!',
         cancelButtonText: 'No, cancel!',
         reverseButtons: true
       }).then((result) => {
         if (result.value) {
-          this.clienteService.delete(direccion.id).subscribe(
+          this.clienteService.delete(direccion.idDireccion).subscribe(
             response => {
               this.direcciones = this.direcciones.filter(dir => dir !== direccion)
               Swal(
                 'Eliminado!',
-                'Cliente eliminado con exito',
+                'Cliente ' + direccion.cliente.nombre +' eliminado con exito',
                 'success'
               )
             }
@@ -45,6 +49,6 @@ export class ClientesComponent implements OnInit {
       })
   }
 
-  
+
 
 }
