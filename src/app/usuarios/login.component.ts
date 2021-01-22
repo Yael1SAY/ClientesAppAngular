@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
  }
 
   ngOnInit() {
+    //si ya estoy acutenticado me manda mensaje
     if(this.authService.isAuthtenticated()){
       Swal('Login', 'Hola ' + this.authService.usuario.username + ' ya estas autenticado!' , 'info');
       this.router.navigate(['/clientes']);
@@ -27,9 +28,11 @@ export class LoginComponent implements OnInit {
 
   login(): void{
     console.log(this.usuario);
+    //valida que el usuario y password no esten vacias
     if(this.usuario.username == null || this.usuario.password == null){
       Swal('Error Login', 'Username o Password vacios!', 'error');
     }
+    //llama al metodo login del service para autenticarse
     this.authService.login(this.usuario).subscribe(response => {
       console.log(response);
       //el token se conpone de tres secciones 1. el algoritmo y tipo, 2.datos y payload 3.La fima para verificar
@@ -45,6 +48,9 @@ export class LoginComponent implements OnInit {
     },error => {
       if(error.status == 400){
         Swal('Error Login', 'Usuario o contraseña incorrecta!!!', 'error');
+      }
+      if(error.status == 0){
+        Swal("Servicio fuera de linea", 'No es posible conectar al servicio, contacte al administrador','error');
       }
     }
   );

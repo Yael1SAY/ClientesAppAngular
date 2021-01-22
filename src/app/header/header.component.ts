@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
   templateUrl: './header.component.html'
 })
 export class HeaderComponent {
- title: string = 'App Angular'
+ title: string = 'Home'
  constructor(private authService: AuthService, private router: Router){}
 
 logout():void{

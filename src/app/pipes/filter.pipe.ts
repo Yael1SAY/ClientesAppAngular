@@ -8,9 +8,11 @@ export class FilterPipe implements PipeTransform {
   transform(value: any, arg: any): any {
     const resultDir = [];
     for(const dir of value){
-      if(dir.cliente.nombre.toLowerCase().indexOf(arg.toLowerCase()) > -1){
+      if(dir.usuario.nombre.toLowerCase().indexOf(arg.toLowerCase()) > -1){
         resultDir.push(dir)
-      }else if(dir.cliente.correo.toLowerCase().indexOf(arg.toLowerCase()) > -1){
+      }else if(dir.usuario.email.toLowerCase().indexOf(arg.toLowerCase()) > -1){
+        resultDir.push(dir)
+      }else if(dir.usuario.curp.toLowerCase().indexOf(arg.toLowerCase()) > -1){
         resultDir.push(dir)
       }
     }

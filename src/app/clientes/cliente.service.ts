@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Direccion } from './direccion';
-import { Cliente } from './cliente';
-import { Municipio } from './municipio';
+import { Estado } from './estado';
 import { Observable } from 'rxjs/Observable';
 import { _throw as throwError } from 'rxjs/observable/throw';
 import { of } from 'rxjs/observable/of';
@@ -29,6 +28,7 @@ export class ClienteService {
 
   private isNoAutorizado(e): boolean{
     if(e.status==401){//realiza la validacion cuando no se a autenticado
+      Swal('Acceso Denegado','Se requiere iniciar sesión','warning')
       this.router.navigate(['/login'])
       return true;
     }
@@ -41,9 +41,22 @@ export class ClienteService {
   }
 
   getClientes(): Observable<Direccion[]> {//
-    return this.http.get<Direccion[]>(this.urlEndPoint)
+    return this.http.get<Direccion[]>(this.urlEndPoint, {headers: this.agregarAuthorizationHeader()})
     .pipe(
-        map(response => response as Direccion[]))
+      catchError(e => {
+        if(e.status==0){
+          this.router.navigate(['/login']);
+          Swal("Servicio fuera de linea", 'No es posible conectar al servicio, contacte al administrador','error');
+          return throwError(e);
+        }
+        if(e.status==401){//realiza la validacion cuando no se a autenticado
+          this.router.navigate(['/login'])
+          return throwError(e);
+        }
+        map(response => response as Direccion[])
+      })
+
+      )
   }
 
   nuevo(direccion: Direccion){
@@ -51,6 +64,10 @@ export class ClienteService {
     .pipe(
       catchError(e => {
         if(this.isNoAutorizado(e)){
+          return throwError(e);
+        }
+        if(e.status==0){
+          Swal(e.name,'No es posible conectar al servicio, contacte al administrador','error');
           return throwError(e);
         }
         console.error('Error Back: ' + e.error.error);
@@ -75,8 +92,12 @@ export class ClienteService {
     )
   }
 
-  getDireccion(codigo){
+  /*getDireccion(codigo){
     return this.http.get<Municipio>(this.urlEndPoint + "municipio/"+codigo, {headers: this.agregarAuthorizationHeader()})
+  }*/
+
+  getEstado(): Observable<Estado[]>{
+    return this.http.get<Estado[]>(this.urlEndPoint + "estados", {headers: this.agregarAuthorizationHeader()})
   }
 
   update(direccion: Direccion): Observable<Direccion>{
@@ -86,24 +107,25 @@ export class ClienteService {
         if(this.isNoAutorizado(e)){
           return throwError(e);
         }
-        this.router.navigate(['/clientes'])
-        console.log(e.error.menasje)
-        Swal('Error al Actualizar Cliente', ' ' + e.error.menasje, 'error');
+        //this.router.navigate(['/clientes'])
+        console.log(e.error)
+        console.log(e.error.error)
+        Swal('Error al Actualizar Cliente', ' ' + e.error.error, 'error');
         return throwError(e)
       })
     );
   }
 
   delete(id: number){
-    return this.http.delete<Direccion>(this.urlEndPoint+""+id, {headers: this.agregarAuthorizationHeader()})
+    return this.http.put<Direccion>(this.urlEndPoint+"delete/"+id, id, {headers: this.agregarAuthorizationHeader()})
     .pipe(
       catchError(e => {
         if(this.isNoAutorizado(e)){
           return throwError(e);
         }
         this.router.navigate(['/clientes'])
-        console.log(e.error.menasje)
-        Swal('Error al elminar', e.error.menasje, 'error');
+        console.log(e.error.error)
+        Swal('Error al elminar', e.error.error, 'error');
         return throwError(e)
       })
     );

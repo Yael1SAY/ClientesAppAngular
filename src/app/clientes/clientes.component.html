@@ -13,8 +13,10 @@
       <thead>
         <tr>
           <th>Id</th>
-          <th>Correo</th>
+          <th>E-mail</th>
+          <th>Usuario</th>
           <th>Nombre</th>
+          <th>CURP</th>
           <th>Edad</th>
           <th>Direccion</th>
           <th>Referencia</th>
@@ -23,10 +25,12 @@
       <tbody>
         <tr *ngFor="let direccion of direcciones | filter:filterDirecciones">
           <td>{{ direccion.idDireccion }}</td>
-          <td>{{ direccion.cliente.correo }}</td><!--interpolacion-->
-          <td>{{ direccion.cliente.nombre }} {{ direccion.cliente.apellido }}</td>
-          <td>{{ direccion.cliente.edad }}</td>
-          <td>{{ direccion.calle }}, #{{ direccion.noExterior }}, {{ direccion.municipio }}, {{ direccion.estado }}, C.P. {{ direccion.codPostal }}</td>
+          <td>{{ direccion.usuario.email }}</td><!--interpolacion-->
+          <td>{{ direccion.usuario.username }}</td>
+          <td>{{ direccion.usuario.nombre }} {{ direccion.usuario.apellido }}</td>
+          <td>{{ direccion.usuario.curp }}</td>
+          <td>{{ direccion.usuario.edad }}</td>
+          <td>{{ direccion.calle }}, #{{ direccion.noExterior }}, {{ direccion.municipio }}, {{ direccion.estado.nombre }}, C.P. {{ direccion.codPostal }}</td>
           <td>{{ direccion.referencia }}</td>
           <td>
             <button type="button" name="edit" [routerLink]="['/clientes/form', direccion.idDireccion]" class="btn btn-primary btn-sm">Editar</button>

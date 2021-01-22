@@ -1,4 +1,5 @@
-import { Cliente } from './cliente';
+import { Usuario } from '../usuarios/usuario';
+import { Estado } from './estado';
 
 export class Direccion {
 
@@ -7,10 +8,11 @@ export class Direccion {
   noExterior:number;
   codPostal:number;
   munucipio: string;
-  estado: string;
+  //estado: string;
   referencia: string;
-  idCliente: number;
-  cliente: Cliente = new Cliente();
+  idUsuario: number;
+  usuario: Usuario = new Usuario();
+  estado: Estado = new Estado();
 }
 
 /*

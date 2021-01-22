@@ -6,12 +6,6 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="/directivas">Directivas</a>
-      </li>
       <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" routerLink="/clientes">Clientes</a>
       </li>
@@ -22,7 +16,7 @@
       </li>
       <li *ngIf="authService.isAuthtenticated()" class="dropdown">
         <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-          {{authService.usuario.username}}
+          {{authService.usuario.username}} {{authService.usuario.apellido}}
         </a>
 
         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">

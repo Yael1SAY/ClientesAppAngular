@@ -22,7 +22,7 @@ const routes: Routes = [//se registran las rutas
   {path: 'directivas', component: DirectivaComponent},
   {path: 'clientes', component: ClientesComponent},
   {path: 'clientes/form', component: FormComponent},
-  {path: 'clientes/form/:codigo', component: FormComponent},
+  //{path: 'clientes/form/:codigo', component: FormComponent},
   {path: 'clientes/form/:id', component: FormComponent},
   {path: 'login', component: LoginComponent}
 ];

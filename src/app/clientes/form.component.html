@@ -3,17 +3,40 @@
   </div>
   <div class="card-body">
     <form #clienteForm="ngForm"> <!--invoca al metodo del componente al presionar el boton-->
+
       <div class="form-group row">
-        <label for="email" class="col-form-label col-sm-2">Correo</label>
+        <!--label for="email" class="col-form-label col-sm-2">Correo</label-->
         <div class="col-sm-5"> <!--objeto direccion.correo hace referencia al objeto creado en el componente (form.component.ts)-->
-          <input type="email" class="form-control" [(ngModel)]="direccion.cliente.correo" name="email" required email #email="ngModel">
-          <!--Nombre del atributo de la clase component-->
+          <input type="text" class="form-control" [(ngModel)]="direccion.usuario.email"
+          name="email" required #email="ngModel" placeholder="E-mail">
           <div class="alert alert-danger" *ngIf="email.invalid && (email.dirty || email.touched)">
             <div *ngIf="email.errors.required">
               Campo Correo es Requerido
             </div>
-            <div *ngIf="email.errors.email">
-              Agrege formato valido
+          </div>
+        </div>
+        <div class="col-sm-5">              <!--ngModel va a mapear el objeto direccion-->
+          <input type="text" class="form-control" [(ngModel)]= direccion.usuario.username
+          name="username" required #username="ngModel" placeholder="Username"
+          pattern="^[a-z0-9_-]{3,16}$">
+          <div class="alert alert-danger" *ngIf="username.invalid && (username.dirty || username.touched)">
+            <div *ngIf="username.errors.required">
+              Campo username es Requerido
+            </div>
+            <div *ngIf="username.errors.pattern">
+              Formato no valido
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="password" class="col-form-label col-sm-2">Contraseña</label>
+        <div class="col-sm-5">              <!--ngModel va a mapear el objeto direccion-->
+          <input type="password" class="form-control" [(ngModel)]= direccion.usuario.password name="password" required #password="ngModel">
+          <div class="alert alert-danger" *ngIf="password.invalid && (username.dirty || password.touched)">
+            <div *ngIf="password.errors.required">
+              Campo contraseña es Requerido
             </div>
           </div>
         </div>
@@ -22,10 +45,14 @@
       <div class="form-group row">
         <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
         <div class="col-sm-5">              <!--ngModel va a mapear el objeto direccion-->
-          <input type="text" class="form-control" [(ngModel)]= direccion.cliente.nombre name="nombre" required #nombre="ngModel">
+          <input type="text" class="form-control" [(ngModel)]= direccion.usuario.nombre name="nombre" required #nombre="ngModel"
+          pattern="^[a-zA-Z ]+$">
           <div class="alert alert-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
             <div *ngIf="nombre.errors.required">
               Campo nombre es Requerido
+            </div>
+            <div *ngIf="nombre.errors.pattern">
+              Formato no valido
             </div>
           </div>
         </div>
@@ -34,10 +61,26 @@
       <div class="form-group row">
         <label for="apellido" class="col-form-label col-sm-2">Apellido</label>
         <div class="col-sm-5">
-          <input type="text" class="form-control" [(ngModel)]="direccion.cliente.apellido" name="apellido" required #apellido="ngModel">
+          <input type="text" class="form-control" [(ngModel)]="direccion.usuario.apellido" name="apellido" required #apellido="ngModel"
+          pattern="^[a-zA-Z ]+$">
           <div class="alert alert-danger" *ngIf="apellido.invalid && (apellido.dirty || apellido.touched)">
             <div *ngIf="apellido.errors.required">
               Campo apellido es Requerido
+            </div>
+            <div *ngIf="apellido.errors.pattern">
+              Formato no valido
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="curp" class="col-form-label col-sm-2">CURP</label>
+        <div class="col-sm-5">
+          <input type="text" class="form-control" [(ngModel)]="direccion.usuario.curp" name="curp" required #curp="ngModel">
+          <div class="alert alert-danger" *ngIf="curp.invalid && (curp.dirty || curp.touched)">
+            <div *ngIf="curp.errors.required">
+              Campo CURP es Requerido
             </div>
           </div>
         </div>
@@ -46,10 +89,14 @@
       <div class="form-group row">
         <label for="edad" class="col-form-label col-sm-2">Edad</label>
         <div class="col-sm-5">
-          <input type="text" class="form-control" [(ngModel)]="direccion.cliente.edad" name="edad" required #edad="ngModel">
+          <input type="text" class="form-control" [(ngModel)]="direccion.usuario.edad" name="edad" required #edad="ngModel"
+          pattern="^[0-9]+$">
           <div class="alert alert-danger" *ngIf="edad.invalid && (edad.dirty || edad.touched)">
             <div *ngIf="edad.errors.required">
               Campo edad es Requerido
+            </div>
+            <div *ngIf="edad.errors.pattern">
+              Formato no valido
             </div>
           </div>
         </div>
@@ -70,10 +117,14 @@
       <div class="form-group row">
         <label for="noExterior" class="col-form-label col-sm-2">Numero Exterior</label>
         <div class="col-sm-5">
-          <input type="text" class="form-control" [(ngModel)]="direccion.noExterior" name="noExterior" required #noexterior="ngModel">
+          <input type="text" class="form-control" [(ngModel)]="direccion.noExterior" name="noExterior" required #noexterior="ngModel"
+          pattern="^[0-9]+$">
           <div class="alert alert-danger" *ngIf="noexterior.invalid && (noexterior.dirty || noexterior.touched)">
             <div *ngIf="noexterior.errors.required">
               Campo numero exterior es Requerido
+            </div>
+            <div *ngIf="noexterior.errors.pattern">
+              Formato no valido
             </div>
           </div>
         </div>
@@ -83,10 +134,13 @@
         <label for="codPostal" class="col-form-label col-sm-2">Codigo Postal</label>
         <div class="col-sm-5">
           <input type="text" id="codPostal" class="form-control" [(ngModel)]="direccion.codPostal" name="codPostal" required #codpostal="ngModel"
-          (blur)="cargarDireccion()">
+          pattern="^[0-9]+$">
           <div class="alert alert-danger" *ngIf="codpostal.invalid && (codpostal.dirty || codpostal.touched)">
             <div *ngIf="codpostal.errors.required">
               Campo Codigo Postal es Requerido
+            </div>
+            <div *ngIf="codpostal.errors.pattern">
+              Formato no valido
             </div>
           </div>
         </div>
@@ -107,12 +161,9 @@
       <div class="form-group row">
         <label for="estado" class="col-form-label col-sm-2">Estado</label>
         <div class="col-sm-5">
-          <input type="text" class="form-control" [(ngModel)]="direccion.estado" name="estado" required #estado="ngModel">
-          <div class="alert alert-danger" *ngIf="estado.invalid && (estado.dirty || estado.touched)">
-            <div *ngIf="estado.errors.required">
-              estado es Requerido
-            </div>
-          </div>
+          <select [compareWith]="compararEstado" class="form-select" [(ngModel)]="direccion.estado" name="estado">
+            <option *ngFor="let estado of estados" [ngValue]="estado">{{estado.nombre}}</option>
+          </select>
         </div>
       </div>
 

@@ -30,6 +30,7 @@ export class AuthService {
     return null;
   }
 
+//metodo para autenricarse
   login(usuario: Usuario): Observable<any>{
     const urlEndPoint = 'http://localhost:8080/oauth/token';
     const credenciales = btoa('angularapp' + ':' + '12345');
@@ -46,6 +47,7 @@ export class AuthService {
 
   }
 //Payload: es la parte del token que contiene los datos encriptados
+//obtiene los datos del token
   guardarUsuario(accessToken: string): void{
     let payload = this.obtenerPayload(accessToken);
     this._usuario = new Usuario();
@@ -59,12 +61,14 @@ export class AuthService {
     //stringify: convierte tipo objeto a JSON
   }
 
+//almacena el token en el sessionStorage
   guardarToken(accessToken: string): void{
     this._token = accessToken;
     //almacena el token en la sesion
     sessionStorage.setItem('token', accessToken)
   }
 
+//decodifica el token y retorna un json con los datos
   obtenerPayload(accessToken: string): any{
     if(accessToken != null){
       return JSON.parse(atob(accessToken.split('.')[1]))
@@ -81,6 +85,7 @@ export class AuthService {
     return false;
   }
 
+//elimina los datos del session
   logout(): void{
     this._token = null;
     this._usuario = null;
